@@ -2,39 +2,41 @@ class array
 {
 	ArrayDifference(array1=[],array2=[])
 	{
-		var i,j,k=0,l=0;
+		var maxArray=[],minArray=[],temp=[];
 		var array3 = new Array(2);
-		array3[0] = new Array;
-		array3[1] = new Array;
-		for(i=0;i<array1.length;i++)
+		if(array1.length>array2.length)
 		{
-			for(j=0;j<array2.length;j++)
-			{
-				if(array1[i]==array2[j])
-					break;
-			}
-			if(j==array2.length)
-			{
-				array3[k][l]=array1[i];
-				l++;
-			}
+			maxArray=array1;
+			minArray=array2;
 		}
-		k++;
-		l=0;
-		for(i=0;i<array2.length;i++)
+		else
 		{
-			for(j=0;j<array1.length;j++)
-			{
-				if(array2[i]==array1[j])
-					break;
-			}
-			if(j==array1.length)
-			{
-				array3[k][l]=array2[i];
-				l++;
-			}
+			maxArray=array2;
+			minArray=array1;
 		}
-		return(array3);
+		temp=maxArray;
+		minArray.forEach(function(min)
+		{
+			temp = temp.filter(function(max)
+			{	
+				return max!==min;
+			})
+			if(temp!==maxArray)
+			{
+				minArray.splice(0,1);
+				maxArray=temp;
+			}
+		});
+		if(array1.length>array2.length)
+		{
+			array3[0] = maxArray;
+			array3[1] = minArray;
+		}
+		{
+			array3[0] = minArray;
+			array3[1] = maxArray;
+		}
+		return array3;
 	}
 }
 
